@@ -1,9 +1,8 @@
-from model.NewsDataModel import NewsData
-from Parser import *
-from util.Constant import *
-from UrlRefiner import *
 from util.LoggingTime import *
-
+from util.Constant import *
+from Parser import *
+from UrlRefiner import *
+from model.NewsDataModel import NewsData
 
 links = []
 data={}
@@ -11,14 +10,13 @@ data={}
 @logging_time
 def extract_news_link():
     for n in range(1, MAX_PAGE+1):
-        TARGET_URL = FIGHT_BASE_URL+str(n)
+        TARGET_URL = FIGHT_BASE_URL.format(n)
         soup = lxml_parser(TARGET_URL)
         
         news_list = soup.find_all(attrs={'class':'item has_img clearfix'})
         for news in news_list:
             link = anscii_encode(news.find("h1").find("a").attrs['href'],"공략")
             links.append(link)
-    print(len(links))
 
 def extract_news_data(link):
     soup = lxml_parser(link)

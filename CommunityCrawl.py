@@ -1,7 +1,8 @@
-from Parser import *
-from util.Constant import *
-from UrlRefiner import *
 from util.LoggingTime import *
+from util.Constant import *
+from Parser import *
+from UrlRefiner import *
+
 
 def extract_community_link():
     soup = lxml_parser(INVEN_MAIN)

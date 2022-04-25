@@ -5,7 +5,7 @@
 
 # Inven magazine 
 MAX_PAGE = 5    #186
-FIGHT_BASE_URL = "https://www.inven.co.kr/search/webzine/news/%EA%B3%B5%EB%9E%B5/"
+FIGHT_BASE_URL = "https://www.inven.co.kr/search/webzine/news/%EA%B3%B5%EB%9E%B5/{0}"
 NEWS_BASE_URL = ""
 
 # Game Community
