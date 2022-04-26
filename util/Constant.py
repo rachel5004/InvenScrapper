@@ -4,9 +4,10 @@
 # 게임 인벤 별 공략도 긁어야할듯
 
 # Inven magazine 
-MAX_PAGE = 5    #186
+FIGHT_MAX_PAGE = 5    #186
+NEWS_MAX_PREMONTH = 4 # 2년
 FIGHT_BASE_URL = "https://www.inven.co.kr/search/webzine/news/%EA%B3%B5%EB%9E%B5/{0}"
-NEWS_BASE_URL = ""
+NEWS_BASE_URL = "https://www.inven.co.kr/webzine/news/?page={0}&premonth={1}"
 
 # Game Community
 INVEN_MAIN = "https://www.inven.co.kr/"

@@ -1,4 +1,4 @@
-class NewsData:
+class PostData:
     def __init__(self) -> None:
         self.link = ""
         self.date = ""

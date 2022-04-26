@@ -2,14 +2,14 @@ from util.LoggingTime import *
 from util.Constant import *
 from Parser import *
 from UrlRefiner import *
-from model.NewsDataModel import NewsData
+from model.PostDataModel import PostData
 
 links = []
 data={}
 
 @logging_time
-def extract_news_link():
-    for n in range(1, MAX_PAGE+1):
+def extract_fight_link():
+    for n in range(1, FIGHT_MAX_PAGE+1):
         TARGET_URL = FIGHT_BASE_URL.format(n)
         soup = lxml_parser(TARGET_URL)
         
@@ -18,28 +18,28 @@ def extract_news_link():
             link = anscii_encode(news.find("h1").find("a").attrs['href'],"공략")
             links.append(link)
 
-def extract_news_data(link):
+def extract_fight_data(link):
     soup = lxml_parser(link)
     try:
         title = soup.find(attrs={"class":"title"}).find("h1").get_text()
     except:
         title = title= soup.find_all(attrs={"class":"title"})[1].find("h1").get_text()
 
-    dict = {
+    data = {
         "link" : link,
         "date" : soup.find("dd").get_text(),
         "title" : title,
         "writer" : soup.find(attrs={"class":"writer"}).get_text(),
-        "content" : soup.find(attrs={"class":"content webzineNewsViewContent"}).get_text()
+        "content" : soup.find(attrs={"class":"webzineNewsViewContent"}).get_text()
     }
-    nd = NewsData(dict)
-    nd.print_data()
+    pd = PostData(data)
+    pd.print_data()
 
 @logging_time
 def extract_all_data(links):
     for link in links:
-        extract_news_data(link)
+        extract_fight_data(link)
         time.sleep(0.2)
 
-extract_news_link()
+extract_fight_link()
 extract_all_data(links)
