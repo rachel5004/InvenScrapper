@@ -1,17 +1,16 @@
 from soupsieve import select
 from model.PostDataModel import PostData
-from util.LoggingTime import *
+from util.Decorators import *
 from util.Constant import *
-from Parser import *
-from UrlRefiner import *
+from util.Parser import *
+from util.UrlRefiner import *
+from MaxPageExractor import extract_max_page
 
 MAX_PAGES = {}
 
-def extract_max_page():
+def get_max_pages():
     for i in range(1, NEWS_MAX_PREMONTH+1):
-        TARGET_URL = NEWS_BASE_URL.format(1, i)
-        soup = lxml_parser(TARGET_URL)
-        NEWS_MAX_PAGE = soup.select("a.pg")[-1].get_text()
+        NEWS_MAX_PAGE = extract_max_page(NEWS_BASE_URL,i)
         MAX_PAGES[i] = NEWS_MAX_PAGE
 
 @logging_time
@@ -42,5 +41,5 @@ def extract_news_data(link):
     pd.print_data()
 
 
-extract_max_page()
+get_max_pages()
 extract_all_data()

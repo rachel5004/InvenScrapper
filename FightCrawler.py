@@ -1,18 +1,18 @@
-from util.LoggingTime import *
+from MaxPageExractor import extract_max_page
+from util.Decorators import *
 from util.Constant import *
-from Parser import *
-from UrlRefiner import *
+from util.Parser import *
+from util.UrlRefiner import *
 from model.PostDataModel import PostData
 
 links = []
-data={}
 
 @logging_time
 def extract_fight_link():
-    for n in range(1, FIGHT_MAX_PAGE+1):
-        TARGET_URL = FIGHT_BASE_URL.format(n)
+    max_page = extract_max_page(FIGHT_BASE_URL,"")
+    for page in range(1, max_page+1):
+        TARGET_URL = FIGHT_BASE_URL.format(page,"")
         soup = lxml_parser(TARGET_URL)
-        
         news_list = soup.find_all(attrs={'class':'item has_img clearfix'})
         for news in news_list:
             link = anscii_encode(news.find("h1").find("a").attrs['href'],"공략")
@@ -20,6 +20,7 @@ def extract_fight_link():
 
 def extract_fight_data(link):
     soup = lxml_parser(link)
+    print(link)
     try:
         title = soup.find(attrs={"class":"title"}).find("h1").get_text()
     except:
